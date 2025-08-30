@@ -4,7 +4,7 @@ FROM node:18-alpine
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files and install dependencies using npm
 COPY package*.json ./
 RUN npm install
 
@@ -14,8 +14,8 @@ COPY . .
 # Build the app
 RUN npm run build
 
-# Expose the default port (adjust if needed)
-EXPOSE 3000
+# Expose the correct port (7003 instead of 3000)
+EXPOSE 7003
 
 # Command to run the app
 CMD ["npm", "run", "start:prod"]
