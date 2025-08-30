@@ -11,10 +11,8 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Build the app
 RUN npm run build
 
-# Expose the correct port (7003 instead of 3000)
 EXPOSE 7003
 
 # Command to run the app
