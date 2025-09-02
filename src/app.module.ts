@@ -17,7 +17,7 @@ import { RecordingsService } from './app.service';
         port: Number(process.env.MYSQL_PORT || 3306),
         username: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWORD,
-        database: process.env.MYSQL_DB,
+        database: 'recordingsdb',
         entities: [Recording],
         synchronize: true, // ❗ set false in production + use migrations
       }),
