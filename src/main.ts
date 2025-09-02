@@ -1,8 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as crypto from 'crypto';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bodyParser: true });
+  (global as any).crypto = crypto;
 
   app.enableCors({
     origin: process.env.FRONTEND_URL?.split(',') || '*', // allow multiple origins if comma-separated
