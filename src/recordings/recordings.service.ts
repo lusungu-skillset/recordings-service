@@ -5,45 +5,61 @@ import { Repository } from 'typeorm';
 import { CreateRecordingDto } from './dto/create-recording.dto';
 import { Recording } from './recordings.entity';
 
+
 @Injectable()
 export class RecordingsService {
   constructor(
     @InjectRepository(Recording)
-    private readonly repo: Repository<Recording>,
+    private readonly recordingRepository: Repository<Recording>,
   ) {}
 
-  async create(file: Express.Multer.File, dto: CreateRecordingDto, uploaderId: number) {
-    const rec = this.repo.create({
-      title: dto.title,
-      description: dto.description,
-      courseId: dto.courseId,
+  async create(
+    file: Express.Multer.File,
+    createRecordingDto: CreateRecordingDto,
+    uploaderId: number,
+  ): Promise<Recording> {
+    const recording = this.recordingRepository.create({
+      title: createRecordingDto.title,
+      description: createRecordingDto.description,
+      courseId: createRecordingDto.courseId,
       uploaderId,
       filename: file.originalname,
-      filepath: file.path,     // Multer provides this
-      mimetype: file.mimetype, // Multer provides this
-      size: file.size,         // Multer provides this
+      filepath: file.path,
+      mimetype: file.mimetype,
+      size: file.size,
     });
-    return this.repo.save(rec);
+
+    return await this.recordingRepository.save(recording);
   }
 
   async findById(id: string): Promise<Recording> {
-    const rec = await this.repo.findOne({ where: { id } });
-    if (!rec) throw new NotFoundException(`Recording ${id} not found`);
-    return rec;
+    const recording = await this.recordingRepository.findOne({ where: { id } });
+    
+    if (!recording) {
+      throw new NotFoundException(`Recording with ID ${id} not found`);
+    }
+    
+    return recording;
   }
 
   async findAll(): Promise<Recording[]> {
-    return this.repo.find();
+    return await this.recordingRepository.find({
+      order: { createdAt: 'DESC' },
+    });
   }
 
   async findByCourse(courseId: number): Promise<Recording[]> {
-    return this.repo.find({ where: { courseId } });
+    return await this.recordingRepository.find({
+      where: { courseId },
+      order: { createdAt: 'DESC' },
+    });
   }
 
   async delete(id: string): Promise<void> {
-    const result = await this.repo.delete(id);
+    const result = await this.recordingRepository.delete(id);
+    
     if (result.affected === 0) {
-      throw new NotFoundException(`Recording ${id} not found`);
+      throw new NotFoundException(`Recording with ID ${id} not found`);
     }
   }
 }
