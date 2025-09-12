@@ -16,8 +16,8 @@ import { RecordingsModule } from './recordings/recordings.module';
         username: process.env.DB_USERNAME || 'eduvibe',
         password: process.env.DB_PASSWORD || 'eduvibe-lms',
         database: process.env.DB_NAME_USERS || 'recordingsdb',
-        entities: [__dirname + '/**/*.entity{.ts,.js}'], // Use glob pattern for flexibility
-        synchronize: true, // ⚠️ Set to false in production
+        entities: [__dirname + '/**/*.entity{.ts,.js}'], 
+        synchronize: true, 
       }),
     }),
     RecordingsModule,
