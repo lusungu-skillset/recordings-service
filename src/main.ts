@@ -1,5 +1,9 @@
-import * as crypto from 'crypto';
-globalThis.crypto = crypto as any;
+import * as crypto from "crypto";
+
+// make it globally available
+(global as any).crypto = crypto;
+
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
