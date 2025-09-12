@@ -14,7 +14,7 @@ import { RecordingsService } from './recordings/recordings.service';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'mysql',
-        host: process.env.DB_HOST || 'mysql', // comes from docker-compose
+        host: process.env.DB_HOST || 'mysql', 
         port: parseInt(process.env.DB_PORT || '3306', 10),
         username: process.env.DB_USERNAME || 'eduvibe',
         password: process.env.DB_PASSWORD || 'eduvibe-lms',
