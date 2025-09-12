@@ -3,11 +3,7 @@ import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 import * as crypto from 'crypto';
-
-if (!globalThis.crypto) {
-  (globalThis as any).crypto = crypto;
-}
-
+globalThis.crypto = crypto as any;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

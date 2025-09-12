@@ -18,7 +18,7 @@ import { RecordingsService } from './recordings/recordings.service';
         port: parseInt(process.env.DB_PORT || '3306', 10),
         username: process.env.DB_USERNAME || 'eduvibe',
         password: process.env.DB_PASSWORD || 'eduvibe-lms',
-        database: process.env.DB_NAME || 'recordingsdb',
+        database: process.env.DB_NAME_USERS || 'recordingsdb',
         entities: [Recording],
         synchronize: true, // ⚠️ dev only
       }),
