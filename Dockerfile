@@ -18,4 +18,4 @@ RUN npm run build
 EXPOSE 3002
 
 # ---- Start ----
-CMD ["node", "dist/main.js"]
+CMD ["node", "-r", "crypto", "dist/src/main.js"]
