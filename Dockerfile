@@ -4,6 +4,9 @@ FROM node:18-alpine
 # ---- App dir ----
 WORKDIR /app
 
+# Install build tools and crypto dependencies
+RUN apk add --no-cache bash git openssl
+
 # ---- Install deps ----
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
@@ -18,4 +21,4 @@ RUN npm run build
 EXPOSE 3002
 
 # ---- Start ----
-CMD ["node", "-r", "crypto", "dist/src/main.js"]
+CMD ["node", "dist/main"]
